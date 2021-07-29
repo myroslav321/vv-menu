@@ -31,7 +31,6 @@
     "@babel/polyfill": "^7.12.1",
     "bootstrap": "^5.0.2",
     "jquery": "^3.6.0",
-    "jquery-slinky": "^4.2.1",
     "mini-css-extract-plugin": "^2.1.0"
   }
 }
