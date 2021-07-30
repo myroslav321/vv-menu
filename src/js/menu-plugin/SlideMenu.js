@@ -344,6 +344,7 @@ let SlideMenu = (function () {
         title.classList.add(SlideMenu.CLASS_NAMES.title);
         var titleLi = document.createElement('li');
         titleLi.appendChild(title);
+        titleLi.classList.add(SlideMenu.CLASS_NAMES.listItem);
         submenu.insertBefore(titleLi, submenu.firstChild);
       }
       // Add back links
@@ -355,6 +356,7 @@ let SlideMenu = (function () {
         backLink.setAttribute('data-action', Action.Back);
         var backLinkLi = document.createElement('li');
         backLinkLi.appendChild(backLink);
+        backLinkLi.classList.add(SlideMenu.CLASS_NAMES.listItem);
         submenu.insertBefore(backLinkLi, submenu.firstChild);
       }
     });
@@ -385,6 +387,7 @@ let SlideMenu = (function () {
     decorator: SlideMenu.NAMESPACE + "__decorator",
     wrapper: SlideMenu.NAMESPACE + "__slider",
     title: SlideMenu.NAMESPACE + "__title",
+    listItem: SlideMenu.NAMESPACE + "__list-item",
   };
   return SlideMenu;
 }());

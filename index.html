@@ -10,7 +10,7 @@
 
     <h1>This is a heading</h1>
     <p>This is a paragraph.</p>
-    <button type="button" class="btn slide-menu__control toggle-slide-menu" data-target="example-slide-menu" data-action="toggle">
+    <button type="button" class="btn slide-menu__control slide-menu__toggle" data-target="example-slide-menu" data-action="toggle">
         Menu <span class="hamburger-menu"></span>
     </button>
 
@@ -23,39 +23,45 @@
         <button type="button" class="btn slide-menu__control slide-menu__closebutton" data-action="close"></button>
     </div>
 
-    <ul>
-        <li>
-            <a href="google.com">Level 1 </a>
-            <ul>
-                <li><a href="google.com">Level 1.2</a>
-                    <ul>
-                        <li><a href="google.com">Level 1.2.3</a></li>
-                        <li><a href="#">Level 1.2.3</a>
-                            <ul>
-                                <li><a href="google.com">Level 1.2.3.4</a>
-                                    <ul>
-                                        <li><a href="#">Level 1.2.3.4.5</a>
+    <ul class="slide-menu__list">
+        <li class="slide-menu__list-item">
+            <a class="slide-menu__link" href="google.com">Level 1 </a>
+            <ul class="slide-menu__list">
+                <li class="slide-menu__list-item">
+                    <a class="slide-menu__link"  href="google.com">Level 1.2</a>
+                    <ul class="slide-menu__list">
+                        <li class="slide-menu__list-item"><a href="google.com">Level 1.2.3</a></li>
+                        <li class="slide-menu__list-item"><a href="#">Level 1.2.3</a>
+                            <ul class="slide-menu__list">
+                                <li class="slide-menu__list-item"><a href="google.com">Level 1.2.3.4</a>
+                                    <ul class="slide-menu__list">
+                                        <li class="slide-menu__list-item">
+                                            <a class="slide-menu__link"  href="#">Level 1.2.3.4.5</a>
                                         </li>
-                                        <li><a href="#">Level 1.2.3.4.5</a></li>
-                                        <li><a href="#">Level 1.3.3.4.5</a></li>
+                                        <li class="slide-menu__list-item">
+                                            <a class="slide-menu__link"  href="#">Level 1.2.3.4.5</a>
+                                        </li>
+                                        <li class="slide-menu__list-item">
+                                            <a class="slide-menu__link"  href="#">Level 1.3.3.4.5</a>
+                                        </li>
                                     </ul>
                                 </li>
-                                <li><a href="#">Level 1.2.3.4</a></li>
-                                <li><a href="#">Level 1.3.3.4</a></li>
+                                <li class="slide-menu__list-item"><a class="slide-menu__link"  href="#">Level 1.2.3.4</a></li>
+                                <li class="slide-menu__list-item"><a class="slide-menu__link"  href="#">Level 1.3.3.4</a></li>
                             </ul>
                         </li>
-                        <li><a href="#">Level 1.3.3</a></li>
+                        <li class="slide-menu__list-item"><a class="slide-menu__link"  href="#">Level 1.3.3</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Level 1.2</a></li>
-                <li><a href="#">Level 1.3</a></li>
+                <li class="slide-menu__list-item"><a class="slide-menu__link"  href="#">Level 1.2</a></li>
+                <li class="slide-menu__list-item"><a class="slide-menu__link"  href="#">Level 1.3</a></li>
             </ul>
         </li>
-        <li>
-            <a href="/blog">Blog</a>
+        <li class="slide-menu__list-item">
+            <a class="slide-menu__link"  href="/blog">Blog</a>
         </li>
-        <li>
-            <a href="/about">About</a>
+        <li class="slide-menu__list-item">
+            <a class="slide-menu__link"  href="/about">About</a>
         </li>
     </ul>
 </nav>
