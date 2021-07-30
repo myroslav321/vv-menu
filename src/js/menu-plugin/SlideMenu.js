@@ -1,4 +1,4 @@
-"use strict";
+ "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 
 const dom_1 = require("./utils/dom");
@@ -15,7 +15,7 @@ let MenuPosition;
   MenuPosition["Right"] = "right";
 })(MenuPosition || (MenuPosition = {}));
 
-var Action;
+let Action;
 (function (Action) {
   Action["Back"] = "back";
   Action["Close"] = "close";
@@ -23,17 +23,20 @@ var Action;
   Action["Navigate"] = "navigate";
   Action["Open"] = "open";
 })(Action || (Action = {}));
-var DEFAULT_OPTIONS = {
+
+let DEFAULT_OPTIONS = {
   backLinkAfter: '',
-  backLinkBefore: '',
+  backLinkBefore: '<span class="prew-default-double-arrows"> Back </span>',
   keyClose: '',
   keyOpen: '',
   position: 'right',
   showBackLink: true,
-  submenuLinkAfter: '',
+  showTitle: true,
+  submenuLinkAfter: '<span class="next-default-arrow"></span>',
   submenuLinkBefore: '',
 };
-var SlideMenu = /** @class */ (function () {
+
+let SlideMenu = (function () {
   function SlideMenu(elem, options) {
     this.level = 0;
     this.isOpen = false;
@@ -48,7 +51,7 @@ var SlideMenu = /** @class */ (function () {
     // Add wrapper (for the slide effect)
     this.wrapperElem = document.createElement('div');
     this.wrapperElem.classList.add(SlideMenu.CLASS_NAMES.wrapper);
-    var firstUl = this.menuElem.querySelector('ul');
+    const firstUl = this.menuElem.querySelector('ul');
     if (firstUl) {
       dom_1.wrapElement(firstUl, this.wrapperElem);
     }
@@ -63,7 +66,7 @@ var SlideMenu = /** @class */ (function () {
    */
   SlideMenu.prototype.toggle = function (show, animate) {
     if (animate === void 0) { animate = true; }
-    var offset;
+    let offset;
     if (show === undefined) {
       return this.isOpen ? this.close(animate) : this.open(animate);
     }
@@ -78,7 +81,7 @@ var SlideMenu = /** @class */ (function () {
       this.moveSlider(this.menuElem, offset);
     }
     else {
-      var action = this.moveSlider.bind(this, this.menuElem, offset);
+      let action = this.moveSlider.bind(this, this.menuElem, offset);
       this.runWithoutAnimation(action);
     }
   };
@@ -174,14 +177,15 @@ var SlideMenu = /** @class */ (function () {
    * Set up all event handlers
    */
   SlideMenu.prototype.initEventHandlers = function () {
-    var _this = this;
+    const _this = this;
     // Ordinary links inside the menu
-    var anchors = Array.from(this.menuElem.querySelectorAll('a'));
+    const anchors = Array.from(this.menuElem.querySelectorAll('a'));
     anchors.forEach(function (anchor) {
       return anchor.addEventListener('click', function (event) {
-        var target = event.target;
-        var targetAnchor = target.matches('a') ? target : dom_1.parentsOne(target, 'a');
-        if (targetAnchor) {
+        const target = event.target;
+        let targetAnchor = target.matches('a') ? target : dom_1.parentsOne(target, 'a');
+        let targetCurrent = target.matches('span') ? target : null;
+        if (targetCurrent) {
           _this.navigate(Direction.Forward, targetAnchor);
         }
       });
@@ -205,7 +209,7 @@ var SlideMenu = /** @class */ (function () {
     }
   };
   SlideMenu.prototype.initKeybindings = function () {
-    var _this = this;
+    const _this = this;
     document.addEventListener('keydown', function (event) {
       switch (event.key) {
         case _this.options.keyClose:
@@ -221,7 +225,7 @@ var SlideMenu = /** @class */ (function () {
     });
   };
   SlideMenu.prototype.initSubmenuVisibility = function () {
-    var _this = this;
+    const _this = this;
     // Hide the lastly shown menu when navigating back (important for navigateTo)
     this.menuElem.addEventListener('sm.back-after', function () {
       var lastActiveSelector = ("." + SlideMenu.CLASS_NAMES.active + " ").repeat(_this.level + 1);
@@ -238,8 +242,8 @@ var SlideMenu = /** @class */ (function () {
   SlideMenu.prototype.triggerEvent = function (action, afterAnimation) {
     if (afterAnimation === void 0) { afterAnimation = false; }
     this.lastAction = action;
-    var name = "sm." + action + (afterAnimation ? '-after' : '');
-    var event = new CustomEvent(name);
+    let name = "sm." + action + (afterAnimation ? '-after' : '');
+    let event = new CustomEvent(name);
     this.menuElem.dispatchEvent(event);
   };
   /**
@@ -250,16 +254,16 @@ var SlideMenu = /** @class */ (function () {
     if (this.isAnimating || (dir === Direction.Backward && this.level === 0)) {
       return;
     }
-    var offset = (this.level + dir) * -100;
+    let offset = (this.level + dir) * -100;
     if (anchor && anchor.parentElement !== null && dir === Direction.Forward) {
-      var ul = anchor.parentElement.querySelector('ul');
+      let ul = anchor.parentElement.querySelector('ul');
       if (!ul) {
         return;
       }
       ul.classList.add(SlideMenu.CLASS_NAMES.active);
       ul.style.display = 'block';
     }
-    var action = dir === Direction.Forward ? Action.Forward : Action.Back;
+    let action = dir === Direction.Forward ? Action.Forward : Action.Back;
     this.triggerEvent(action);
     this.level = this.level + dir;
     this.moveSlider(this.wrapperElem, offset);
@@ -279,7 +283,7 @@ var SlideMenu = /** @class */ (function () {
    * Initialize the menu
    */
   SlideMenu.prototype.initMenu = function () {
-    var _this = this;
+    let _this = this;
     this.runWithoutAnimation(function () {
       switch (_this.options.position) {
         case MenuPosition.Left:
@@ -323,17 +327,30 @@ var SlideMenu = /** @class */ (function () {
       if (!submenu) {
         return;
       }
+
+      let backLinkTitle = anchor.parentElement.parentElement.parentElement.getElementsByClassName(SlideMenu.CLASS_NAMES.title).length ? (anchor.parentElement.parentElement.parentElement.getElementsByClassName(SlideMenu.CLASS_NAMES.title)[0].textContent) : 'Startsite';
+
       // Prevent default behaviour (use link just to navigate)
       anchor.addEventListener('click', function (event) {
-        event.preventDefault();
+         event.preventDefault();
       });
       var anchorText = anchor.textContent;
       _this.addLinkDecorators(anchor);
+      // Add Title
+      if (_this.options.showTitle) {
+        var _t = _this.options;
+        var title = document.createElement('a');
+        title.innerHTML = anchorText;
+        title.classList.add(SlideMenu.CLASS_NAMES.title);
+        var titleLi = document.createElement('li');
+        titleLi.appendChild(title);
+        submenu.insertBefore(titleLi, submenu.firstChild);
+      }
       // Add back links
       if (_this.options.showBackLink) {
         var _a = _this.options, backLinkBefore = _a.backLinkBefore, backLinkAfter = _a.backLinkAfter;
         var backLink = document.createElement('a');
-        backLink.innerHTML = backLinkBefore + anchorText + backLinkAfter;
+        backLink.innerHTML = backLinkBefore + backLinkTitle + backLinkAfter;
         backLink.classList.add(SlideMenu.CLASS_NAMES.backlink, SlideMenu.CLASS_NAMES.control);
         backLink.setAttribute('data-action', Action.Back);
         var backLinkLi = document.createElement('li');
@@ -359,6 +376,7 @@ var SlideMenu = /** @class */ (function () {
     }
     return anchor;
   };
+
   SlideMenu.NAMESPACE = 'slide-menu';
   SlideMenu.CLASS_NAMES = {
     active: SlideMenu.NAMESPACE + "__submenu--active",
@@ -366,36 +384,36 @@ var SlideMenu = /** @class */ (function () {
     control: SlideMenu.NAMESPACE + "__control",
     decorator: SlideMenu.NAMESPACE + "__decorator",
     wrapper: SlideMenu.NAMESPACE + "__slider",
+    title: SlideMenu.NAMESPACE + "__title",
   };
   return SlideMenu;
 }());
+
 // Link control buttons with the API
 document.addEventListener('click', function (event) {
   if (!(event.target instanceof HTMLElement)) {
     return;
   }
-  var btn = event.target.className.includes(SlideMenu.CLASS_NAMES.control)
+  let btn = event.target.className.includes(SlideMenu.CLASS_NAMES.control)
       ? event.target
       : dom_1.parentsOne(event.target, "." + SlideMenu.CLASS_NAMES.control);
   if (!btn || !btn.className.includes(SlideMenu.CLASS_NAMES.control)) {
     return;
   }
-  var target = btn.getAttribute('data-target');
-  var menu = !target || target === 'this'
+  const target = btn.getAttribute('data-target');
+  let menu = !target || target === 'this'
       ? dom_1.parentsOne(btn, "." + SlideMenu.NAMESPACE)
       : document.getElementById(target); // assumes #id
   if (!menu) {
     throw new Error("Unable to find menu " + target);
   }
-  var instance = menu._slideMenu;
-  var method = btn.getAttribute('data-action');
-  var arg = btn.getAttribute('data-arg');
-  // @ts-ignore
+  const instance = menu._slideMenu;
+  const method = btn.getAttribute('data-action');
+  const arg = btn.getAttribute('data-arg');
   if (instance && method && typeof instance[method] === 'function') {
-    // @ts-ignore
     arg ? instance[method](arg) : instance[method]();
   }
 });
+
 // Expose SlideMenu to the global namespace
-// @ts-ignore
 window.SlideMenu = SlideMenu;

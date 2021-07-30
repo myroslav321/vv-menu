@@ -10,30 +10,14 @@ html {
 body {
   font-family: 'Lato', sans-serif;
   line-height: 1.4;
-  color: fade_out(#000, 0.06);
 }
 
 h1 {
   font-size: 1.8rem;
   font-weight: bold;
 
-  small {
-    margin-left: 0.3rem;
-    color: fade_out(#000, 0.4);
-    font-size: 60%;
-  }
 }
 
-h2 {
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
-  font-size: 1rem;
-}
-
-a {
-  text-decoration: none;
-  color: saturate(lighten($color-primary, 16%), 8%);
-}
 
 a,
 .btn {
@@ -41,31 +25,11 @@ a,
   will-change: background-color;
 }
 
-p {
-  margin: 0 0 0.5rem;
-}
-
-p:last-of-type {
-  margin: 0 0 2rem;
-}
-
-footer {
-  margin-top: 2rem;
-  font-size: 90%;
-
-  a {
-    font-style: italic;
-  }
-
-  path {
-    fill: $color-danger;
-  }
-}
 
 .btn {
   padding: 0.6rem 0.8rem 0.64rem 0.8rem;
   border: none;
-  color: #fff;
+  color: $sm-menu-text-link-color;
   cursor: pointer;
   font-family: inherit;
   font-size: 85%;
@@ -77,50 +41,6 @@ footer {
   margin: 0 0.1rem;
 }
 
-main {
-  display: block; // IE11
-  width: 90%;
-  margin: 2.5rem auto;
-
-  .btn {
-    width: 100%;
-    display: block;
-    margin: 0 0.25rem 0.75rem 0;
-    background-color: lighten($color-primary, 8%);
-    border-radius: 0.2rem;
-    font-size: 70%;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-  }
-
-  @media (min-width: 768px) {
-    max-width: 40rem;
-
-    .btn {
-      width: auto;
-      display: inline-block;
-
-      &:hover {
-        background-color: $color-primary;
-      }
-    }
-
-    .btn-danger {
-      background-color: $color-danger;
-
-      &:hover {
-        background-color: darken($color-danger, 8%);
-      }
-    }
-  }
-
-  #events {
-    font-family: monospace;
-    font-size: 80%;
-  }
-}
-
-
 .slide-menu {
   width: $sm-menu-width;
   background-color: $color-primary;
@@ -131,15 +51,115 @@ main {
     color: $sm-menu-text-link-color;
   }
 
-  a {
-    padding-left: $sm-menu-padding-left;
-    padding-right: $sm-menu-padding-right;
-    border-bottom: $sm-menu-text-link-border-bottom;
-    text-decoration: $sm-menu-text-decoration;
+  ul {
 
-    &:hover {
-      background-color: $sm-menu-background-hover;
-      color: $sm-menu-text-color-hover;
+    li {
+      padding: 20px 80px;
+
+      .next-default-arrow {
+        position: relative;
+
+        &:after {
+          content: "";
+          display: inline-block;
+          position: absolute;
+          margin-top: 0.3rem;
+          width: 16px;
+          height: 16px;
+          border-top: 2px solid $sm-menu-background-hover;
+          border-right: 2px solid $sm-menu-background-hover;
+          transform: rotate(45deg);
+          transition: all 0.1s ease-out;
+        }
+      }
+
+      &:hover {
+        background-color: $sm-menu-background-hover;
+
+        & > a {
+          color: $sm-menu-text-color-hover;
+
+          .slide-menu__decorator {
+            color: $sm-menu-text-color-hover;
+          }
+
+          .next-default-arrow {
+            position: relative;
+
+            &:after {
+              border-top: 2px solid $sm-menu-text-color-hover;
+              border-right: 2px solid $sm-menu-text-color-hover;
+            }
+          }
+        }
+
+
+      }
+    }
+
+    a {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: $sm-menu-text-link-border-bottom;
+      text-decoration: $sm-menu-text-decoration;
+
+      .slide-menu__decorator {
+        color: $sm-menu-background-hover;
+      }
+
+    }
+
+    .slide-menu__backlink {
+      justify-content: flex-start;
+      cursor: pointer;
+      font-size: 20px;
+      font-style: italic;
+      line-height: 1.5;
+      position: relative;
+      width: 100%;
+      background: initial;
+      text-align: left;
+      padding-left: 40px;
+      text-transform: none;
+      color: $sm-menu-text-link-color;
+
+      .prew-default-double-arrows {
+        position: relative;
+
+        &:before,
+        &:after {
+          content: "";
+          display: inline-block;
+          position: absolute;
+          margin-top: 0.3rem;
+          width: 16px;
+          height: 16px;
+          border-top: 1px solid $sm-menu-text-link-color;
+          border-right: 1px solid $sm-menu-text-link-color;
+          transform: rotate(225deg);
+          transition: all 0.1s ease-out;
+          left: -35px
+        }
+
+        &:after {
+          left: -28px
+        }
+      }
+
+      &:hover {
+        color: $sm-menu-text-color-hover;
+
+        .prew-default-double-arrows {
+          position: relative;
+
+          &:before,
+          &:after {
+            border-top: 1px solid $sm-menu-text-color-hover;
+            border-right: 1px solid $sm-menu-text-color-hover;
+          }
+        }
+      }
+
     }
   }
 
@@ -152,87 +172,24 @@ main {
     padding: 0.75rem 1.5rem;
     flex: 1 0 auto;
     font-size: 90%;
-    color: #fff;
-    background-color: darken($color-primary, 6%);
+    color: $sm-menu-text-link-color;
+    background-color: transparent;
     text-transform: uppercase;
-
   }
-
-  .slide-menu__close {
-
-  }
-
-  .slide-menu__backbutton-container {
-    padding: 0 70px;
-    margin: 20px 0;
-
-
-    &:hover {
-      background: $sm-menu-background-hover;
-    }
-
-    .slide-menu__backbutton {
-      cursor: pointer;
-      font-size: 20px;
-      font-style: italic;
-      line-height: 1.5;
-      border-bottom: 2px solid gray;
-      position: relative;
-      width: 100%;
-      background: initial;
-      text-align: left;
-      padding-left: 40px;
-      text-transform: none;
-      color: $sm-menu-text-link-color;
-
-      &:before,
-      &:after {
-        content: "";
-        display: inline-block;
-        position: absolute;
-        margin-top: 0.3rem;
-        width: 16px;
-        height: 16px;
-        border-top: 1px solid $sm-menu-text-link-color;
-        border-right: 1px solid $sm-menu-text-link-color;
-        transform: rotate(225deg);
-        transition: all 0.1s ease-out;
-        left: 9px;
-      }
-
-      &:after {
-        left: 9px;
-      }
-
-      &:before {
-        left: 0;
-      }
-
-      &:hover {
-        color: $sm-menu-text-color-hover;
-        border-bottom: 2px solid $sm-menu-background-hover;
-
-        &:before,
-        &:after {
-          border-top: 1px solid $sm-menu-text-color-hover;
-          border-right: 1px solid $sm-menu-text-color-hover;
-        }
-      }
-    }
-  }
-
 }
+
 
 .slide-menu__closebutton {
   position: relative;
   right: 50px;
   width: 32px;
   height: 32px;
-  margin-left: 100%;
+  margin: 20px 100% 20px;
 
   &:before,
   &:after {
     position: absolute;
+    top: 0;
     left: 15px;
     content: ' ';
     height: 33px;
@@ -256,4 +213,52 @@ main {
   }
 }
 
+.toggle-slide-menu {
+  position: absolute;
+  top: 50px;
+  right: 100px;
+  color: black;
+  background: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .hamburger-menu {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background: black;
+    margin-left: 20px;
+    position: relative;
+
+    &:before,
+    &:after {
+      content: '';
+      width: 100%;
+      height: 3px;
+      background: black;
+      position: absolute;
+      left: 0;
+    }
+
+    &:before {
+      transform: translateY(-8px);
+    }
+
+    &:after {
+      transform: translateY(8px);
+    }
+  }
+
+  &:hover {
+    .hamburger-menu {
+      background: $sm-menu-background-hover;
+
+      &:before,
+      &:after {
+        background: $sm-menu-background-hover;
+      }
+    }
+  }
+}
 

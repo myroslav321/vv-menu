@@ -2,7 +2,7 @@ import './menu-plugin/SlideMenu.js';
 
 document.addEventListener("DOMContentLoaded", function () {
   const menuElement = document.getElementById('example-slide-menu');
-  const menu = new SlideMenu(menuElement);
-
+  const menu = new SlideMenu(menuElement, );
+  menu.open();
 });
 
