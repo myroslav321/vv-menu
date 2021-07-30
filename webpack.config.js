@@ -1,6 +1,6 @@
 // Webpack uses this to work with directories
 const webpack = require('webpack');
-const path = require('path')
+const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const projectPath = './src/';
