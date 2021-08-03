@@ -20,12 +20,13 @@ The SlideMenu() constructor takes an optional second parameter (an object {}) to
 - showBackLink	/ Add a link to navigate back in submenus (first entry) / 	boolean /	true
 - submenuLinkBefore	/ HTML to prepend to links with a submenu /	HTML code /	''
 - submenuLinkAfter	/ HTML to append to links with a submenu / HTML code /	'<span class="next-default-arrow"></span>'
-
+- slideContent  / class name of element which should be slided with menu  / 'main-content' / ''
 
 Example:
 const menu = new SlideMenu(document.getElementById('example-menu'),{
      showBackLink: false,
-     submenuLinkAfter: ' <strong>⇒</strong>'
+     submenuLinkAfter: ' <strong>⇒</strong>',
+     slideContent: 'main-content'
  });
 ~
 ~

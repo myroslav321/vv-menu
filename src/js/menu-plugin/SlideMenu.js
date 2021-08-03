@@ -34,6 +34,7 @@ let DEFAULT_OPTIONS = {
   showTitle: true,
   submenuLinkAfter: '<span class="next-default-arrow"></span>',
   submenuLinkBefore: '',
+  slideContent: '',
 };
 
 let SlideMenu = (function () {
@@ -67,14 +68,26 @@ let SlideMenu = (function () {
   SlideMenu.prototype.toggle = function (show, animate) {
     if (animate === void 0) { animate = true; }
     let offset;
+    const leftPosition = this.options.position === MenuPosition.Left;
+    const slideContentClass = leftPosition ? SlideMenu.CLASS_NAMES.slideContentLeft : SlideMenu.CLASS_NAMES.slideContentRight;
+    const translateContentValue = leftPosition ? this.menuElem.offsetWidth + 'px' : - this.menuElem.offsetWidth + 'px';
+
     if (show === undefined) {
       return this.isOpen ? this.close(animate) : this.open(animate);
     }
     else if (show) {
       offset = 0;
+      if (this.options.slideContent) {
+        document.getElementsByClassName(this.options.slideContent)[0].classList.add(slideContentClass);
+        document.getElementsByClassName(this.options.slideContent)[0].style.transform = `translateX(${translateContentValue})`;
+      }
     }
     else {
       offset = this.options.position === MenuPosition.Left ? '-100%' : '100%';
+      if (this.options.slideContent) {
+        document.getElementsByClassName(this.options.slideContent)[0].classList.remove(slideContentClass);
+        document.getElementsByClassName(this.options.slideContent)[0].style.transform = `translateX(0)`;
+      }
     }
     this.isOpen = show;
     if (animate) {
@@ -388,6 +401,8 @@ let SlideMenu = (function () {
     wrapper: SlideMenu.NAMESPACE + "__slider",
     title: SlideMenu.NAMESPACE + "__title",
     listItem: SlideMenu.NAMESPACE + "__list-item",
+    slideContentRight: SlideMenu.NAMESPACE + "__right-menu-active",
+    slideContentLeft: SlideMenu.NAMESPACE + "__left-menu-active",
   };
   return SlideMenu;
 }());

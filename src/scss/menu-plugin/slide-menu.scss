@@ -33,6 +33,10 @@ a,
   line-height: 1;
 }
 
+.main-container {
+  transition: transform $sm-transition-dur $sm-transition-easing;
+}
+
 .slide-menu {
   width: $sm-menu-width;
   background-color: $color-primary;
