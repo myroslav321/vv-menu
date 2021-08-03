@@ -35,6 +35,7 @@ let DEFAULT_OPTIONS = {
   submenuLinkAfter: '<span class="next-default-arrow"></span>',
   submenuLinkBefore: '',
   slideContent: '',
+  saveMenuState: true,
 };
 
 let SlideMenu = (function () {
@@ -113,6 +114,10 @@ let SlideMenu = (function () {
     if (animate === void 0) { animate = true; }
     this.triggerEvent(Action.Close);
     this.toggle(false, animate);
+    if(this.options.saveMenuState === false) {
+      this.navigateTo(`.${SlideMenu.CLASS_NAMES.listItem}`);
+    }
+
   };
   /**
    * Navigate one menu hierarchy back if possible
