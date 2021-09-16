@@ -106,7 +106,7 @@ let SlideMenu = (function () {
     if (animate === void 0) { animate = true; }
     this.triggerEvent(Action.Open);
     this.toggle(true, animate);
-    document.getElementsByTagName( 'html' )[0].setAttribute( 'class', 'slide-menu-opened' );
+    document.getElementsByTagName( 'html' )[0].classList.add('slide-menu-opened' );
   };
   /**
    * Close the menu
