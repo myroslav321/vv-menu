@@ -106,6 +106,7 @@ let SlideMenu = (function () {
     if (animate === void 0) { animate = true; }
     this.triggerEvent(Action.Open);
     this.toggle(true, animate);
+    document.getElementsByTagName( 'html' )[0].setAttribute( 'class', 'slide-menu-opened' );
   };
   /**
    * Close the menu
@@ -117,7 +118,7 @@ let SlideMenu = (function () {
     if(this.options.saveMenuState === false) {
       this.navigateTo(`.${SlideMenu.CLASS_NAMES.listItem}`);
     }
-
+    document.getElementsByTagName( 'html' )[0].classList.remove('slide-menu-opened');
   };
   /**
    * Navigate one menu hierarchy back if possible
