@@ -5,13 +5,13 @@
 
 html {
   font-size: 20px;
+
 }
 
 body {
   font-family: 'Lato', sans-serif;
   line-height: 1.4;
 }
-
 h1 {
   font-size: 1.8rem;
   font-weight: bold;
@@ -35,6 +35,26 @@ a,
 
 .main-container {
   transition: transform $sm-transition-dur $sm-transition-easing;
+}
+
+.slide-menu-opened {
+  overflow-y: hidden;
+
+  body {
+    overflow-y: scroll;
+
+    &:after {
+      width: 100%;
+      height: 100%;
+      background: $sm-menu-background;
+      content: "";
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      opacity: 0.3;
+    }
+  }
 }
 
 .slide-menu {
