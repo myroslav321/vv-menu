@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.parentsOne = exports.parents = exports.unwrapElement = exports.wrapElement = void 0;
-function wrapElement(elem, wrapper) {
+export const wrapElement = (elem, wrapper) => {
   if (elem.parentElement === null) {
     throw Error('`elem` has no parentElement');
   }
@@ -9,8 +6,9 @@ function wrapElement(elem, wrapper) {
   wrapper.appendChild(elem);
   return elem;
 }
-exports.wrapElement = wrapElement;
-function unwrapElement(elem) {
+
+
+export const unwrapElement = (elem) => {
   let parent = elem.parentElement;
   if (parent === null) {
     throw Error('`elem` has no parentElement');
@@ -20,8 +18,8 @@ function unwrapElement(elem) {
   }
   parent.removeChild(elem);
 }
-exports.unwrapElement = unwrapElement;
-function parents(elem, selector, limit) {
+
+export const parents = (elem, selector, limit) => {
   let matched = [];
   while (elem &&
   elem.parentElement !== null &&
@@ -33,9 +31,8 @@ function parents(elem, selector, limit) {
   }
   return matched;
 }
-exports.parents = parents;
-function parentsOne(elem, selector) {
+
+export const parentsOne = (elem, selector) => {
   const matches = parents(elem, selector, 1);
   return matches.length ? matches[0] : null;
 }
-exports.parentsOne = parentsOne;

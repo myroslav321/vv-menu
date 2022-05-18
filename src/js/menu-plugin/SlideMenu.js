@@ -347,7 +347,7 @@ let SlideMenu = (function () {
         return;
       }
 
-      let backLinkTitle = anchor.parentElement.parentElement.parentElement.getElementsByClassName(SlideMenu.CLASS_NAMES.title).length ? (anchor.parentElement.parentElement.parentElement.getElementsByClassName(SlideMenu.CLASS_NAMES.title)[0].textContent) : 'Startsite';
+      let backLinkTitle = anchor.parentElement.parentElement.parentElement.getElementsByClassName(SlideMenu.CLASS_NAMES.title).length ? (anchor.parentElement.parentElement.parentElement.getElementsByClassName(SlideMenu.CLASS_NAMES.title)[0].textContent) : '';
 
       // Prevent default behaviour (use link just to navigate)
       anchor.addEventListener('click', function (event) {
