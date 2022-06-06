@@ -7,6 +7,7 @@ const Navigation = () => {
   const btn = document.querySelector('.offset-menu__control');
   const close = document.querySelector('.offset-menu__close-button');
   const links = document.querySelectorAll('.offset-menu__link ');
+  let isLastVisible = false;
   let isOpen = false;
 
   const scroll = lockScroll();
@@ -28,6 +29,7 @@ const Navigation = () => {
     btn.addEventListener('click', open);
     close.addEventListener('click', () => {
       isOpen = !isOpen;
+      isLastVisible = !isLastVisible
       scroll.enable()
       header.classList.remove('_nav-open');
       clearClasses();
@@ -37,9 +39,20 @@ const Navigation = () => {
 
   const handleLastLevel = (html) => {
     const menu = document.createElement('div');
+    const classList = menu.classList;
+  
     menu.classList.add('offset-menu__last-level');
+    isLastVisible && menu.classList.add('_show');
     menu.appendChild(html);
     wrp.appendChild(menu);
+
+    const timeout = setTimeout(() => {
+      if (!isLastVisible) {
+        isLastVisible = !isLastVisible
+        classList.add('_show');
+      }
+      clearTimeout(timeout)
+    }, 14);
   };
 
   const clearLastLevel = () => {
@@ -71,6 +84,7 @@ const Navigation = () => {
       if (e.target.dataset.action === 'back') {
         const parent = getParentNode(e.target, 'offset-menu__list-item');
         parent.querySelector('._sub-2__visible').classList.remove('_sub-2__visible');
+        isLastVisible = !isLastVisible
         clearLastLevel();
       }
 

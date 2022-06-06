@@ -443,13 +443,15 @@ a,
   left: 480px;
   height: 100%;
   background: $sm-menu-background;
+  opacity: 0;
+  transition: 0.5s ease;
 
   &:after {
     content: '';
     display: block;
     width: 1px;
     bottom: 0;
-    top: 120px;
+    top: 155px;
     left: 0;
     background: #C4C4C4;
     position: absolute;
@@ -472,6 +474,10 @@ a,
 
   .offset-menu__subheader {
     padding: 24px 68px 24px 35px;
+  }
+
+  &._show {
+    opacity: 1;
   }
 }
 
