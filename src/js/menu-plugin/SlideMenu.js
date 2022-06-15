@@ -9,6 +9,7 @@ const Navigation = () => {
   const links = document.querySelectorAll('.offset-menu__link ');
   let isLastVisible = false;
   let isOpen = false;
+  let depth = 0;
 
   const scroll = lockScroll();
 
@@ -22,7 +23,8 @@ const Navigation = () => {
   const clearClasses = () => {
     [...document.querySelectorAll('._sub-2__visible')].forEach(item => {
       item.classList.remove('_sub-2__visible');
-    })
+    });
+    depth = 0;
   };
 
   const controlHandler = () => {
@@ -64,9 +66,10 @@ const Navigation = () => {
 
   const submenuHandler = () => {
     document.addEventListener('click', (e) => {
+  
       const ww = window.innerWidth;
       if (e.target.dataset.show === 'sub') {
-
+        depth = 2;
         const isLastLevel = e.target.nextElementSibling.classList.contains('_level-3');
 
         if (ww < 992) {
@@ -85,14 +88,18 @@ const Navigation = () => {
         const parent = getParentNode(e.target, 'offset-menu__list-item');
         parent.querySelector('._sub-2__visible').classList.remove('_sub-2__visible');
         isLastVisible = !isLastVisible
+        depth = 1;
         clearLastLevel();
       }
 
       if (e.target.dataset.target)  {
         e.preventDefault();
         document.querySelector(`[data-ref='${e.target.dataset.target}']`).classList.add('_sub-2__visible') ;
+        depth = 2;
         open();
       }
+
+      header.classList.toggle('_sub-open', depth > 1);
     })
   };
 
