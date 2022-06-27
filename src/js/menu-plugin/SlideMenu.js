@@ -1,5 +1,7 @@
 import lockScroll from "./utils/lockScroll";
 import getParentNode from "./utils/getParentNode";
+import "regenerator-runtime/runtime.js";
+import { toggle } from "slide-element";
 
 const Navigation = () => {
   const header = document.querySelector('.header');
@@ -34,8 +36,8 @@ const Navigation = () => {
       isLastVisible = !isLastVisible
       scroll.enable()
       header.classList.remove('_nav-open');
-      clearClasses();
-      clearLastLevel();
+      // clearClasses();
+      // clearLastLevel();
     })
   };
 
@@ -58,9 +60,9 @@ const Navigation = () => {
   };
 
   const clearLastLevel = () => {
-    const html = wrp.querySelector('.offset-menu__last-level');
-    if (html) {
-      html.remove();
+    const lastLevel = document.querySelector('._sub-3__visible');
+    if (lastLevel) {
+      lastLevel.classList.remove('_sub-3__visible');
     }
   }
 
@@ -76,9 +78,14 @@ const Navigation = () => {
           e.target.classList.add('_sub-2__visible');
         } else if (!isLastLevel) {
           e.target.classList.add('_sub-2__visible');
-        } else {
-          clearLastLevel();
-          handleLastLevel(e.target.nextElementSibling.cloneNode(true));
+        }
+
+        if (isLastLevel) {
+          ww < 992 && toggle(e.target.nextElementSibling);
+          [...document.querySelectorAll('._sub-3__visible')].forEach(item => {
+            item.classList.remove('_sub-3__visible');
+          })
+          e.target.classList.toggle('_sub-3__visible');
         }
 
         e.preventDefault();
@@ -99,6 +106,7 @@ const Navigation = () => {
         open();
       }
 
+      console.log(depth)
       header.classList.toggle('_sub-open', depth > 1);
     })
   };
